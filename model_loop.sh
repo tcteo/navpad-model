@@ -9,6 +9,6 @@ while read -r directory events filename; do
     # echo '  - skip -'
     continue
   fi
+  echo "$(date "+%Y-%m-%d %H:%M:%S"): Regenerating model..."
   ./model.sh
-  echo '======================================================================'
 done
