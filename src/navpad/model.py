@@ -70,6 +70,7 @@ def main():
 
   # print(m.gen())
   with open('model.scad', 'w') as f:
+    # TODO update scadgen to support global declarations (eg. $fn)
     f.writelines([s+'\n' for s in [
       '$fn=72;'
     ]])
