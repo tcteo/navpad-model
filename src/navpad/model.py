@@ -12,6 +12,7 @@ switch_border_x = 2.55  # border on left and right
 switch_border_y = 5  # border on top and bottom
 zheight = 5  # set to 5 for proper build?
 x_spacing = (switch_size + (2*switch_border_x) - 2*zfe)
+show_keycap_planes = True
 
 with s.ScadModule('side_tab_half_cyl') as side_tab_half_cyl:
     with s.translate([0, tab_width, switch_size/2]):
@@ -53,6 +54,13 @@ def mx_keyswitch_hole(x=None, y=None, z=None, xangle=None, yangle=None, z_offset
                         s.cube([switch_size+2*switch_border_x,
                                switch_size+2*switch_border_y, zheight-2*zfe])
                     switch_hole_xyplane_centered()
+    if show_keycap_planes:
+        with s.translate([x,y,z]):
+            with s.rotate([yangle, xangle, 0]):
+                s.cube([12.5,12.5,0.2], center=True)
+            with s.rotate([yangle, xangle, 0]):
+                with s.translate([0,0,-8]):
+                    s.cube([18.2,18.2,0.2], center=True)
 
 
 def main():
@@ -62,13 +70,16 @@ def main():
             colx = col * x_spacing
             # bottom row
             mx_keyswitch_hole(x=colx, y=0, z=0, xangle=0,
-                              yangle=0, z_offset=13.6)
+                              yangle=0, z_offset=13.6,
+                              show_keycap_planes=show_keycap_planes)
             # middle row
             mx_keyswitch_hole(x=colx, y=17.5, z=1.5, xangle=0,
-                              yangle=10, z_offset=13.6)
+                              yangle=10, z_offset=13.6,
+                              show_keycap_planes=show_keycap_planes)
             # top row
             mx_keyswitch_hole(x=colx, y=34, z=6, xangle=0,
-                              yangle=22, z_offset=13.6)
+                              yangle=22, z_offset=13.6,
+                              show_keycap_planes=show_keycap_planes)
 
     # print(m.gen())
     with open('model.scad', 'w') as f:
