@@ -45,41 +45,37 @@ with s.ScadModule('switch_hole_xyplane_centered') as switch_hole_xyplane_centere
 # with s.ScadModule('mx_keyswitch_hole') as mx_keyswitch_hole:
 
 
-def mx_keyswitch_hole(x=None, y=None, z=None, xangle=None, yangle=None, z_offset=None, show_keycap_planes=False):
-    with s.translate([x, y, z]):
-        with s.rotate([yangle, xangle, 0]):
-            with s.translate([0, 0, -z_offset]):
-                with s.difference():
-                    with s.translate([-switch_size/2-switch_border_x, -switch_size/2-switch_border_y, -zheight + zfe]):
-                        s.cube([switch_size+2*switch_border_x,
-                               switch_size+2*switch_border_y, zheight-2*zfe])
-                    switch_hole_xyplane_centered()
+def mx_keyswitch_hole(z_offset=None, show_keycap_planes=False):
     if show_keycap_planes:
-        with s.translate([x,y,z]):
-            with s.rotate([yangle, xangle, 0]):
-                s.cube([12.5,12.5,0.2], center=True)
-            with s.rotate([yangle, xangle, 0]):
-                with s.translate([0,0,-8]):
-                    s.cube([18.2,18.2,0.2], center=True)
+        s.cube([12.5, 12.5, 0.1], center=True)  # Top of keycap
+        with s.translate([0, 0, -8]):
+            s.cube([18.2, 18.2, 0.1], center=True)  # Bottom of keycap
+    with s.translate([0, 0, -z_offset]):
+        # Key switch housing
+        with s.difference():
+            with s.translate([-switch_size/2-switch_border_x, -switch_size/2-switch_border_y, -zheight + zfe]):
+                s.cube([switch_size+2*switch_border_x,
+                        switch_size+2*switch_border_y, zheight-2*zfe])
+            switch_hole_xyplane_centered()
 
 
 def main():
     m = s.ScadContext()
+    x_by_col = [col*x_spacing for col in range(0, 5)]
+    y_by_row = [0, 17.5, 34]
+    yangle_by_row = [0, 10, 22]
+    z_by_row = [0, 1.5, 6]
+    xangle = 0
     with m:
-        for col in range(0, 5):
-            colx = col * x_spacing
-            # bottom row
-            mx_keyswitch_hole(x=colx, y=0, z=0, xangle=0,
-                              yangle=0, z_offset=13.6,
-                              show_keycap_planes=show_keycap_planes)
-            # middle row
-            mx_keyswitch_hole(x=colx, y=17.5, z=1.5, xangle=0,
-                              yangle=10, z_offset=13.6,
-                              show_keycap_planes=show_keycap_planes)
-            # top row
-            mx_keyswitch_hole(x=colx, y=34, z=6, xangle=0,
-                              yangle=22, z_offset=13.6,
-                              show_keycap_planes=show_keycap_planes)
+        for x in x_by_col:
+            for yi in range(0, len(y_by_row)):
+                y = y_by_row[yi]
+                yangle = yangle_by_row[yi]
+                z = z_by_row[yi]
+                with s.translate([x, y, z]):
+                    with s.rotate([yangle, xangle, 0]):
+                        mx_keyswitch_hole(z_offset=13.6,
+                                          show_keycap_planes=show_keycap_planes)
 
     # print(m.gen())
     with open('model.scad', 'w') as f:
