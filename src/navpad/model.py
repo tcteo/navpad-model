@@ -42,20 +42,22 @@ with s.ScadModule('switch_hole_xyplane_centered') as switch_hole_xyplane_centere
     with s.rotate([-90, 0, 0]):
         switch_hole_upright()
 
-# with s.ScadModule('mx_keyswitch_hole') as mx_keyswitch_hole:
 
-
-def mx_keyswitch_hole(z_offset=None, show_keycap_planes=False):
+def mx_keyswitch_frame(z_offset=13.6, show_keycap_planes=False):
+    """Frame for a single MX keyswitch."""
     if show_keycap_planes:
-        s.cube([12.5, 12.5, 0.1], center=True)  # Top of keycap
-        with s.translate([0, 0, -8]):
-            s.cube([18.2, 18.2, 0.1], center=True)  # Bottom of keycap
+        with s.color('blue'):
+            s.cube([12.5, 12.5, 0.05], center=True)  # Top of keycap, centered at the origin.
+        with s.color('green'):
+            with s.translate([0, 0, -8]):
+                s.cube([18.2, 18.2, 0.05], center=True)  # Bottom of keycap.
+    # The switch housing, z_offset below the origin.
     with s.translate([0, 0, -z_offset]):
-        # Key switch housing
         with s.difference():
             with s.translate([-switch_size/2-switch_border_x, -switch_size/2-switch_border_y, -zheight + zfe]):
                 s.cube([switch_size+2*switch_border_x,
                         switch_size+2*switch_border_y, zheight-2*zfe])
+            # Cut out hole for the switch.
             switch_hole_xyplane_centered()
 
 
@@ -74,8 +76,7 @@ def main():
                 z = z_by_row[yi]
                 with s.translate([x, y, z]):
                     with s.rotate([yangle, xangle, 0]):
-                        mx_keyswitch_hole(z_offset=13.6,
-                                          show_keycap_planes=show_keycap_planes)
+                        mx_keyswitch_frame(show_keycap_planes=show_keycap_planes)
 
     # print(m.gen())
     with open('model.scad', 'w') as f:
