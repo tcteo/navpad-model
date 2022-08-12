@@ -1,4 +1,5 @@
 import scadgen as s
+import math
 
 tab_width = 1
 switch_size = 14
@@ -46,34 +47,86 @@ def mx_keyswitch_frame(z_offset=13.6, show_keycap_planes=False):
     """Frame for a single MX keyswitch."""
     if show_keycap_planes:
         with s.color('blue'):
-            s.cube([12.5, 12.5, 0.05], center=True)  # Top of keycap, centered at the origin.
+            # Top of keycap, centered at the origin.
+            s.cube([12.5, 12.5, 0.05], center=True)
         with s.color('green') + s.translate([0, 0, -8]):
-                s.cube([18.2, 18.2, 0.05], center=True)  # Bottom of keycap.
+            s.cube([18.2, 18.2, 0.05], center=True)  # Bottom of keycap.
     # The switch housing, z_offset below the origin.
     with s.translate([0, 0, -z_offset]):
         with s.difference():
-            with s.translate([-switch_size/2-switch_border_x, -switch_size/2-switch_border_y, -zheight + zfe]):
+            with s.translate([0, 0, -zheight/2]):
                 s.cube([switch_size+2*switch_border_x,
-                        switch_size+2*switch_border_y, zheight-2*zfe])
+                        switch_size+2*switch_border_y, zheight-2*zfe], center=True)
             # Cut out hole for the switch.
             switch_hole_xyplane_centered()
+
+
+def translate_rotate_2d(x, y, rz, tx, ty):
+    x2 = (x * math.cos(math.radians(rz))) - (y * math.sin(math.radians(rz)))
+    y2 = (x * math.sin(math.radians(rz))) + (y * math.cos(math.radians(rz)))
+    x3 = x2 + tx
+    y3 = y2 + ty
+    return [x3, y3]
+
+    # # N/S/E/W orientation is looking at the keyboard from the left (from -y to +y)
+    # [switch_border_y+switch_size/2,0], # row1 NE
+    # [switch_border_y+switch_size/2,-zheight], # row1 SE
+    # [-switch_border_y-switch_size/2,-zheight], # row1 SW
+
+
+switch_z_offset = 13.6  # below keycap plane
 
 
 def main():
     m = s.ScadContext()
     x_by_col = [col*x_spacing for col in range(0, 5)]
-    y_by_row = [0, 17.5, 34]
+    y_by_row = [0, 18, 35]
     yangle_by_row = [0, 10, 22]
-    z_by_row = [0, 1.5, 6]
-    xangle = 0
+    z_by_row = [0, 1.6, 6.5]
+    poly_points = []
     with m:
         for x in x_by_col:
             for yi in range(0, len(y_by_row)):
                 y = y_by_row[yi]
                 yangle = yangle_by_row[yi]
                 z = z_by_row[yi]
-                with s.translate([x, y, z]) + s.rotate([yangle, xangle, 0]):
-                    mx_keyswitch_frame(show_keycap_planes=show_keycap_planes)
+                with s.translate([x, y, z]) + s.rotate([yangle, 0, 0]):
+                    mx_keyswitch_frame(
+                        z_offset=switch_z_offset, show_keycap_planes=show_keycap_planes)
+
+        # end plate
+        for yi in range(0, len(y_by_row)):
+            # SE
+            c = translate_rotate_2d(
+                switch_border_y+switch_size/2, -zheight - switch_z_offset,
+                -yangle_by_row[yi], -y_by_row[yi], z_by_row[yi])
+            print(f'row{yi} SE: {c}')
+            poly_points.append(c)
+            # SW
+            d = translate_rotate_2d(
+                -switch_border_y-switch_size/2, -zheight - switch_z_offset,
+                -yangle_by_row[yi], -y_by_row[yi], z_by_row[yi])
+            print(f'row{yi} SW: {d}')
+            poly_points.append(d)
+        for yi in range(len(y_by_row)-1, -1, -1):
+            # NW
+            c = translate_rotate_2d(
+                -switch_border_y-switch_size/2, -switch_z_offset,
+                -yangle_by_row[yi], -y_by_row[yi], z_by_row[yi])
+            print(f'row{yi} NW: {c}')
+            poly_points.append(c)
+            # NE
+            d = translate_rotate_2d(
+                switch_border_y+switch_size/2, -switch_z_offset,
+                -yangle_by_row[yi], -y_by_row[yi], z_by_row[yi])
+            print(f'row{yi} NE: {d}')
+            poly_points.append(d)
+
+        with s.color('red'):
+            with s.translate([-(switch_size/2+switch_border_x), 0, 0]):
+               with s.rotate([90, 0, 270]):
+                    with s.linear_extrude(height=0.1):
+                        s.polygon(points=poly_points)
 
     # print(m.gen())
     with open('model.scad', 'w') as f:
