@@ -15,12 +15,11 @@ x_spacing = (switch_size + (2*switch_border_x) - 2*zfe)
 show_keycap_planes = True
 
 with s.ScadModule('side_tab_half_cyl') as side_tab_half_cyl:
-    with s.translate([0, tab_width, switch_size/2]):
-        with s.rotate([0, 180, 0]):
-            with s.difference():
-                s.cylinder(h=tab_len, r=tab_width, center=True)
-                with s.translate([0, -tab_len/2, -tab_len/2-zfe]):
-                    s.cube([tab_width*2, tab_len+2*zfe, 2*tab_len+2*zfe])
+    with s.translate([0, tab_width, switch_size/2]) + s.rotate([0, 180, 0]):
+        with s.difference():
+            s.cylinder(h=tab_len, r=tab_width, center=True)
+            with s.translate([0, -tab_len/2, -tab_len/2-zfe]):
+                s.cube([tab_width*2, tab_len+2*zfe, 2*tab_len+2*zfe])
 
 
 with s.ScadModule('switch_hole_upright') as switch_hole_upright:
@@ -48,8 +47,7 @@ def mx_keyswitch_frame(z_offset=13.6, show_keycap_planes=False):
     if show_keycap_planes:
         with s.color('blue'):
             s.cube([12.5, 12.5, 0.05], center=True)  # Top of keycap, centered at the origin.
-        with s.color('green'):
-            with s.translate([0, 0, -8]):
+        with s.color('green') + s.translate([0, 0, -8]):
                 s.cube([18.2, 18.2, 0.05], center=True)  # Bottom of keycap.
     # The switch housing, z_offset below the origin.
     with s.translate([0, 0, -z_offset]):
@@ -74,9 +72,8 @@ def main():
                 y = y_by_row[yi]
                 yangle = yangle_by_row[yi]
                 z = z_by_row[yi]
-                with s.translate([x, y, z]):
-                    with s.rotate([yangle, xangle, 0]):
-                        mx_keyswitch_frame(show_keycap_planes=show_keycap_planes)
+                with s.translate([x, y, z]) + s.rotate([yangle, xangle, 0]):
+                    mx_keyswitch_frame(show_keycap_planes=show_keycap_planes)
 
     # print(m.gen())
     with open('model.scad', 'w') as f:
