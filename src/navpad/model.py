@@ -31,8 +31,8 @@ switch_z_offset = 13.6
 show_keycap_planes = False  # set to True for devel
 
 row_yoffsets = [0, 18, 35, 53]
-row_angles = [0, 10, 22, 34]
 row_zoffsets = [0, 1.6, 6.5, 13]
+row_angles = [0, 10, 22, 34]
 
 # Invariants, changing will mess up the model.
 column_width = (switch_size + 2*switch_border_x)
