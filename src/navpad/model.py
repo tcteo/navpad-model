@@ -171,7 +171,7 @@ def main():
         with s.translate([len(x_by_col)*(column_width) + side_wall_thickness - switch_size/2-switch_border_x, -switch_size/2-switch_border_y, -switch_z_offset-front_wall_thickness]) + s.rotate([90, 0, 270]):
             with s.linear_extrude(height=len(x_by_col)*(column_width) + 2*side_wall_thickness):
                 with s.difference():
-                    s.circle(r=front_wall_fillet_dia, center=True)
+                    s.circle(r=front_wall_fillet_dia)
                     with s.union():
                         with s.translate([-front_wall_fillet_dia, 0]):
                             s.square([front_wall_fillet_dia,
@@ -182,6 +182,33 @@ def main():
                         with s.translate([0, -front_wall_fillet_dia]):
                             s.square([front_wall_fillet_dia,
                                      front_wall_fillet_dia], center=False)
+
+        # Back wall
+        with s.translate([-switch_size/2-switch_border_x-side_wall_thickness, -row_corners[-1].sw[0], row_corners[-1].sw[1]]) + s.rotate([90, 0, 90]):
+          with s.linear_extrude(height=len(x_by_col)*(column_width) + 2*side_wall_thickness):
+            with s.difference():
+              s.circle(r=thickness)
+              s.polygon([
+                [0,0],
+                translate_rotate_2d(0, thickness*2, row_angles[-1], 0, 0),
+                [-thickness*2,-thickness*2],
+                [thickness*2,-thickness*2],
+                [thickness*2,0],
+                ])
+        with s.translate([
+                -switch_size/2-switch_border_x-side_wall_thickness,
+                -row_corners[-1].sw[0],
+                -wall_height]):
+            with s.difference():
+                s.cube([len(x_by_col)*(column_width)+2*side_wall_thickness,
+                        thickness,
+                        wall_height+row_corners[-1].sw[1]])
+                # Cut out from back wall, for a cable
+                with s.union():
+                    with s.translate([len(x_by_col)*(column_width)+2*side_wall_thickness-14,-zfe,2]) + s.rotate([0,90,90]) + s.linear_extrude(height=6):
+                      s.circle(r=4)
+
+
 
     # print(m.gen())
     with open('model.scad', 'w') as f:

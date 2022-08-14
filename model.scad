@@ -327,7 +327,7 @@ translate([90.95, -10.2, -17.6]) {
   rotate([90, 0, 270]) {
     linear_extrude(height=105.5) {
       difference() {
-        circle(r=4, center=true);
+        circle(r=4);
         union() {
           translate([-4, 0]) {
             square([4, 4], center=false);
@@ -337,6 +337,30 @@ translate([90.95, -10.2, -17.6]) {
           }
           translate([0, -4]) {
             square([4, 4], center=false);
+          }
+        }
+      }
+    }
+  }
+}
+translate([-14.55, 71.85717124461732, 3.2836687658778416]) {
+  rotate([90, 0, 90]) {
+    linear_extrude(height=105.5) {
+      difference() {
+        circle(r=5);
+        polygon([[0, 0], [-5.591929034707469, 8.290375725550415], [-10, -10], [10, -10], [10, 0]]);
+      }
+    }
+  }
+}
+translate([-14.55, 71.85717124461732, -22]) {
+  difference() {
+    cube([105.5, 5, 25.28366876587784]);
+    union() {
+      translate([91.5, -0.001, 2]) {
+        rotate([0, 90, 90]) {
+          linear_extrude(height=6) {
+            circle(r=4);
           }
         }
       }
