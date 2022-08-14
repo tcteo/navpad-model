@@ -2,9 +2,9 @@ import scadgen as s
 import math
 import collections
 
-tab_width = 1
+tab_width = .8
 switch_size = 14
-tab_len = 4
+tab_len = 3
 zfe = 0.001
 latch_plate_width = 1.6  # plate thickness at the latch
 latch_notch_depth = 1

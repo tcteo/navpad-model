@@ -28,12 +28,12 @@ module switch_hole_upright() {
   }
 }
 module side_tab_half_cyl() {
-  translate([0, 1, 7.0]) {
+  translate([0, 0.8, 7.0]) {
     rotate([0, 180, 0]) {
       difference() {
-        cylinder(h=4, r=true, center=true);
-        translate([0, -2.0, -2.001]) {
-          cube([2, 4.002, 8.002]);
+        cylinder(h=3, r=0.8, center=true);
+        translate([0, -1.5, -1.501]) {
+          cube([1.6, 3.002, 6.002]);
         }
       }
     }
