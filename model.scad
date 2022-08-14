@@ -320,6 +320,26 @@ translate([90.949, 0, 0]) {
     }
   }
 }
-translate([-14.55, -15.2, -25]) {
-  cube([105.5, 5, 11.4]);
+translate([-14.55, -14.2, -25]) {
+  cube([105.5, 4, 7.4]);
+}
+translate([90.95, -10.2, -17.6]) {
+  rotate([90, 0, 270]) {
+    linear_extrude(height=105.5) {
+      difference() {
+        circle(r=4, center=true);
+        union() {
+          translate([-4, 0]) {
+            square([4, 4], center=false);
+          }
+          translate([-4, -4]) {
+            square([4, 4], center=false);
+          }
+          translate([0, -4]) {
+            square([4, 4], center=false);
+          }
+        }
+      }
+    }
+  }
 }

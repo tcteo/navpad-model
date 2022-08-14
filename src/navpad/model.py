@@ -15,7 +15,7 @@ switch_border_y = 3.2  # border on top and bottom
 zheight = 5  # set to 5 for proper build?
 x_spacing = (switch_size + (2*switch_border_x))
 side_plate_thickness = 5
-show_keycap_planes = False # set to True for devel
+show_keycap_planes = False  # set to True for devel
 switch_z_offset = 13.6  # below keycap plane
 
 with s.ScadModule('side_tab_half_cyl') as side_tab_half_cyl:
@@ -72,7 +72,6 @@ def translate_rotate_2d(x, y, rz, tx, ty):
     return [x3, y3]
 
 
-
 def main():
     m = s.ScadContext()
     x_by_col = [col*x_spacing for col in range(0, 5)]
@@ -125,10 +124,10 @@ def main():
             side_panel_poly_points.extend(
                 [row_corners[ri].nw, row_corners[ri].ne])
         side_panel_poly_points.extend([
-            [row_corners[0].ne[0],-25],
+            [row_corners[0].ne[0], -25],
             # assuming the top row has a positive angle, the rear-most corner is the SW corner
             # extend the side panel to the vertical line from this point
-            [row_corners[-1].sw[0],-25],
+            [row_corners[-1].sw[0], -25],
             row_corners[-1].sw
         ])
         with s.translate([-(switch_size/2+switch_border_x), 0, 0]):
@@ -141,9 +140,23 @@ def main():
                     s.polygon(points=side_panel_poly_points)
 
         # front panel
-        front_panel_thickness = 5
-        with s.translate([-switch_size/2-switch_border_x-side_plate_thickness,-front_panel_thickness-switch_size/2-switch_border_y,-25]):
-          s.cube([len(x_by_col)*(switch_size+2*switch_border_x)+2*side_plate_thickness,front_panel_thickness,25-13.6])
+        front_panel_thickness = 4
+        front_panel_fillet_dia = front_panel_thickness
+        with s.translate([
+                -switch_size/2-switch_border_x-side_plate_thickness,
+                -front_panel_thickness-switch_size/2-switch_border_y,
+                -25]):
+            s.cube([len(x_by_col)*(switch_size+2*switch_border_x)+2*side_plate_thickness,
+                    front_panel_thickness,
+                    25-13.6-front_panel_thickness])
+        with s.translate([len(x_by_col)*(switch_size+2*switch_border_x) + side_plate_thickness - switch_size/2-switch_border_x, -switch_size/2-switch_border_y, -13.6-front_panel_thickness]) + s.rotate([90,0,270]):
+          with s.linear_extrude(height=len(x_by_col)*(switch_size+2*switch_border_x) + 2*side_plate_thickness):
+            with s.difference():
+              s.circle(r=front_panel_fillet_dia, center=True)
+              with s.union():
+                with s.translate([-front_panel_fillet_dia, 0]): s.square([front_panel_fillet_dia,front_panel_fillet_dia], center=False)
+                with s.translate([-front_panel_fillet_dia,-front_panel_fillet_dia]): s.square([front_panel_fillet_dia,front_panel_fillet_dia], center=False)
+                with s.translate([ 0,-front_panel_fillet_dia]): s.square([front_panel_fillet_dia,front_panel_fillet_dia], center=False)
 
     # print(m.gen())
     with open('model.scad', 'w') as f:
