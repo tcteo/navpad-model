@@ -126,7 +126,10 @@ def main():
                 [row_corners[ri].nw, row_corners[ri].ne])
         side_panel_poly_points.extend([
             [row_corners[0].ne[0],-25],
-            [row_corners[-1].nw[0],-25],
+            # assuming the top row has a positive angle, the rear-most corner is the SW corner
+            # extend the side panel to the vertical line from this point
+            [row_corners[-1].sw[0],-25],
+            row_corners[-1].sw
         ])
 
         
