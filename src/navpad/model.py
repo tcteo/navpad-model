@@ -131,8 +131,6 @@ def main():
             [row_corners[-1].sw[0],-25],
             row_corners[-1].sw
         ])
-
-        
         with s.translate([-(switch_size/2+switch_border_x), 0, 0]):
             with s.rotate([90, 0, 270]):
                 with s.linear_extrude(height=side_plate_thickness):
@@ -141,6 +139,11 @@ def main():
             with s.rotate([90, 0, 270]):
                 with s.linear_extrude(height=side_plate_thickness):
                     s.polygon(points=side_panel_poly_points)
+
+        # front panel
+        front_panel_thickness = 5
+        with s.translate([-switch_size/2-switch_border_x-side_plate_thickness,-front_panel_thickness-switch_size/2-switch_border_y,-25]):
+          s.cube([len(x_by_col)*(switch_size+2*switch_border_x)+2*side_plate_thickness,front_panel_thickness,25-13.6])
 
     # print(m.gen())
     with open('model.scad', 'w') as f:
