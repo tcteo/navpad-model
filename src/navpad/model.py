@@ -82,7 +82,7 @@ def mx_keyswitch_frame(z_offset=13.6, show_keycap_planes=False):
         with s.difference():
             with s.translate([0, 0, -thickness/2]):
                 s.cube([switch_size+2*switch_border_x+2*zfe,
-                        switch_size+2*switch_border_y+2*zfe, thickness-2*zfe], center=True)
+                        switch_size+2*switch_border_y+2*zfe, thickness-8*zfe], center=True)
             # Cut out hole for the switch.
             switch_hole_xyplane_centered()
 

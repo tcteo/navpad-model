@@ -44,7 +44,7 @@ translate([0.0, 0, 0]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -56,7 +56,7 @@ translate([0.0, 18, 1.6]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -68,7 +68,7 @@ translate([0.0, 35, 6.5]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -80,7 +80,7 @@ translate([0.0, 53, 13]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -92,7 +92,7 @@ translate([19.1, 0, 0]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -104,7 +104,7 @@ translate([19.1, 18, 1.6]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -116,7 +116,7 @@ translate([19.1, 35, 6.5]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -128,7 +128,7 @@ translate([19.1, 53, 13]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -140,7 +140,7 @@ translate([38.2, 0, 0]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -152,7 +152,7 @@ translate([38.2, 18, 1.6]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -164,7 +164,7 @@ translate([38.2, 35, 6.5]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -176,7 +176,7 @@ translate([38.2, 53, 13]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -188,7 +188,7 @@ translate([57.300000000000004, 0, 0]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -200,7 +200,7 @@ translate([57.300000000000004, 18, 1.6]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -212,7 +212,7 @@ translate([57.300000000000004, 35, 6.5]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -224,7 +224,7 @@ translate([57.300000000000004, 53, 13]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -236,7 +236,7 @@ translate([76.4, 0, 0]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -248,7 +248,7 @@ translate([76.4, 18, 1.6]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -260,7 +260,7 @@ translate([76.4, 35, 6.5]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
@@ -272,7 +272,7 @@ translate([76.4, 53, 13]) {
     translate([0, 0, -13.6]) {
       difference() {
         translate([0, 0, -2.5]) {
-          cube([19.102, 20.401999999999997, 4.998], center=true);
+          cube([19.102, 20.401999999999997, 4.992], center=true);
         }
         switch_hole_xyplane_centered();
       }
