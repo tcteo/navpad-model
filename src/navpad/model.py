@@ -23,7 +23,7 @@ thickness = 5
 
 side_wall_thickness = 5
 front_wall_thickness = 4
-wall_height = 22
+wall_height = 18.6 + 4 # 18.6 makes this flush with bottom of plate
 
 # Each switch hole is modeled relative to a keycap on the x-y plane.
 # This is the distance between the top of the keycap and the switch mount.
@@ -39,7 +39,7 @@ column_width = (switch_size + 2*switch_border_x)
 
 assert len(row_yoffsets) == len(row_angles) == len(row_zoffsets)
 
-# Half-cylinders for retaining tabs ont he left and right of each switch hole.
+# Half-cylinders for retaining tabs on the left and right of each switch hole.
 with s.ScadModule('retaining_tab_half_cyl') as retaining_tab_half_cyl:
     with s.translate([0, retaining_tab_width, switch_size/2]) + s.rotate([0, 180, 0]):
         with s.difference():
